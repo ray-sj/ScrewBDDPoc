@@ -1,0 +1,57 @@
+package DomainObjects;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import PageObjects.FacetPage;
+import PageObjects.HomePage;
+import PageObjects.ResultsPage;
+import stepdefs.DomainClass;
+
+public class BreadBoxDomain extends DomainClass{
+
+	private static WebDriver drive;
+	private ResultsPage results = new ResultsPage();
+	private HomePage home = new HomePage();
+	private FacetPage facets = new FacetPage();
+	private static String pageNumber = null;
+
+	public BreadBoxDomain() {
+		super();
+	}
+
+	public boolean confirmResultsPresent(){
+		return results.searchMsgProductCount(drive).getText().isEmpty();
+	}
+	
+	public boolean checkBreadBoxPresent(){
+		boolean presenceDetected = false;
+		WebElement facetBreadBox = null;
+		List <WebElement> facetList = null;
+		facetList = facets.breadBoxPresent(super.driver);
+		Iterator<WebElement> iterateFacets = facetList.iterator();
+		while(iterateFacets.hasNext()){
+			facetBreadBox = iterateFacets.next();
+			String str = facetBreadBox.getText();
+			if (facetBreadBox.getText().equals("Your Filters")){
+				presenceDetected = true;
+				break;
+			}
+		}
+		return facetBreadBox == null ? false : true;
+	}
+
+	public void quitBrowser(){
+		drive.quit();
+	}
+	
+	public void closeBrowser(){
+		drive.close();
+	}
+
+}

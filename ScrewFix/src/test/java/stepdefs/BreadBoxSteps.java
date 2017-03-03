@@ -1,0 +1,53 @@
+package stepdefs;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import DomainObjects.BreadBoxDomain;
+import cucumber.api.PendingException;
+import cucumber.api.java8.En;
+
+public class BreadBoxSteps implements En {
+	
+	
+	public BreadBoxSteps() {
+		
+		String searchText = "cutters";
+//		String searchText = "drills";
+		BreadBoxDomain breadBox = new BreadBoxDomain();
+		
+		Given("^the search results are displayed$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+			System.out.println("results displayed");
+		});
+
+		When("^results are confirmed$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+		    System.out.println("results confirmed");
+		});
+
+		Then("^validate that the breadbox is not present$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+			Assert.assertFalse(breadBox.checkBreadBoxPresent());
+		    breadBox.quitBrowser();
+		});			
+
+		When("^the user has selected a facet$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+		    breadBox.singleFacetSelection();
+		});
+
+		Then("^validate that the breadbox is present$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+		    Assert.assertTrue(breadBox.confirmBreadBoxListIsUpdated());
+		});
+
+		Then("^that the selected facet is the only one present$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+		    throw new PendingException();
+		});
+	}
+	
+}

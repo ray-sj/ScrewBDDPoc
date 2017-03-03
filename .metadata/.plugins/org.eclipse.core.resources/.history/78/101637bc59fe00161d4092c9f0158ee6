@@ -1,0 +1,24 @@
+package PageObjects;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class FacetPage {
+
+	private static WebElement element = null;
+	
+	public List<WebElement> breadBoxPresent(WebDriver driver){
+		List <WebElement> element = driver.findElements(By.className("facets"));			
+		return element;
+	}
+	
+	public WebElement clearAllFacetsSelected(WebDriver driver){
+		element = driver.findElement(By.className("js-clear-facets"));
+		return element;
+	}
+
+}

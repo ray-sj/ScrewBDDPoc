@@ -1,0 +1,37 @@
+package stepdefs;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import DomainObjects.BreadBoxDomain;
+import cucumber.api.java8.En;
+
+public class BreadBoxSteps implements En {
+	
+	
+	public BreadBoxSteps() {
+		
+		String searchText = "cutters";
+//		String searchText = "drills";
+		BreadBoxDomain breadBox = new BreadBoxDomain();
+		
+		Given("^the search results are displayed$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+		    System.out.println("");
+		});
+
+		When("^results are confirmed$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+		    Assert.assertTrue(breadBox.confirmThatTheResultsAreCorrect());
+		});
+
+		Then("^validate that the breadbox is not present$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+			Assert.assertFalse(breadBox.checkBreadBoxPresent());
+		    breadBox.quitBrowser();
+		});			
+	}
+	
+}

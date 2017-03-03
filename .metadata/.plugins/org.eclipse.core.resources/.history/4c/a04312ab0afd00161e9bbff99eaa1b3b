@@ -1,0 +1,84 @@
+package DomainObjects;
+
+import java.util.StringTokenizer;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import PageObjects.FacetPage;
+import PageObjects.HomePage;
+import PageObjects.ResultsPage;
+import stepdefs.DomainClass;
+
+public class BreadBoxDomain extends DomainClass{
+
+	public BreadBoxDomain() {
+		super();
+		// TODO Auto-generatd constructor stub
+	}
+
+	private static WebDriver drive;
+	private ResultsPage results = new ResultsPage();
+	private HomePage home = new HomePage();
+	private FacetPage facets = new FacetPage();
+	private static String pageNumber = null;
+
+//	public BreadBoxDomain() {
+//		this.drive = drive;
+//		System.setProperty("webdriver.chrome.driver", "C:\\Users\\sneddr02\\Downloads\\chromedriver\\chromedriver.exe");
+//		drive = new ChromeDriver();
+//		drive.get("http://dev07-storefront.aws.gha.kfplc.com/");
+//	}
+//
+//	public void setupSearch(String searchText) {
+//		WebElement element = home.searchBoxText(drive);
+//		element.clear();
+//		element.sendKeys(searchText);
+//	}
+//	
+//	public boolean confirmThatTheResultsAreCorrect(){
+//		boolean confirmationStatus = false;
+//		home.searchButton(drive).click();
+//		if (home.searchMsg(drive).getText().contains("We found")){
+//			int paginationLastPageNumner = 0;
+//			if (results.paginationText(drive).isDisplayed()){
+//				paginationLastPageNumner = Integer.parseInt(getPageNumber("Last"));
+//				
+//			}
+//			confirmationStatus = paginationLastPageNumner > 1 ? true: false; 
+//		}
+//		return confirmationStatus;
+//	}
+//	
+//	public String getPageNumber(String position){
+//		StringTokenizer tokString = new StringTokenizer(results.paginationText(drive).getText(), " ");
+//		int tokens = 0;
+//		while (tokString.hasMoreElements()){
+//			tokens++;
+//			String tokenChecker = tokString.nextElement().toString();
+//			if ((position.equals("current") || position.equals("first")) && (tokens == 2)){
+//				pageNumber = tokenChecker;
+//			} else {
+//				pageNumber = tokenChecker;
+//			}
+//		}
+//		return pageNumber;
+//	}
+
+	public boolean checkBreadBoxPresent(){
+		WebElement facetBreadBox = null;
+		facetBreadBox = facets.breadBoxPresent(drive);
+		
+		return facetBreadBox == null ? false : true;
+	}
+
+	public void quitBrowser(){
+		drive.quit();
+	}
+	
+	public void closeBrowser(){
+		drive.close();
+	}
+
+}

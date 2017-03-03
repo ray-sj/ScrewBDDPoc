@@ -1,0 +1,26 @@
+package PageObjects;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class FacetPage {
+
+	private static WebElement element = null;
+	
+	public WebElement breadBoxPresent(WebDriver driver){
+		try{
+			element = driver.findElement(By.className("facet-breadbox"));			
+		} catch (NoSuchElementException notFound) {
+			
+		}
+		return element;
+	}
+	
+	public WebElement clearAllFacetsSelected(WebDriver driver){
+		element = driver.findElement(By.className("js-clear-facets"));
+		return element;
+	}
+
+}

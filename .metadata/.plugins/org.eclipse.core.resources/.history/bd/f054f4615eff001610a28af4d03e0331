@@ -1,0 +1,107 @@
+package PageObjects;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class FacetPage {
+
+	private static WebElement element = null;
+	private static List<String> selectedFacetsList = null;
+	
+	public WebElement breadBoxPresent(WebDriver driver){
+		try{
+			element = driver.findElement(By.className("facet-breadbox"));			
+		} catch (NoSuchElementException notFound) {
+			
+		}
+		return element;
+	}
+	
+	public WebElement clearAllFacetsSelected(WebDriver driver){
+		if (breadBoxPresent(driver) != null){
+			element = driver.findElement(By.className("js-clear-facets"));
+		}
+		return element;
+	}
+	
+	public List<String> getStoredFacetsList(){
+		return selectedFacetsList;
+	}
+	
+	public List<WebElement> getFacetsList(WebDriver driver){
+		return driver.findElements(By.id("ui-facets-content"));
+	}
+	
+	public WebElement clearFacetFromList(WebDriver driver, String facetToBeRemoved){
+		WebElement facetElement = null;
+		List<WebElement> listOfSelectedFacets = driver.findElements(By.className("content-inner clearfix"));
+		Iterator<WebElement> iterF = listOfSelectedFacets.iterator();
+		while (iterF.hasNext()){
+			element = iterF.next();
+			if (element.getText().equals(facetToBeRemoved)){
+				facetElement = element;
+				break;
+			}
+		}
+		return facetElement;
+	}
+
+	public void addSelectedFacetToList(String facetSelected){
+		selectedFacetsList.add(facetSelected);
+	}
+
+	public boolean confirmListOfFacetSelected(WebDriver driver, List<String> facets){
+		boolean listsMatch = true;
+		List<WebElement> listOfSelectedFacets = driver.findElements(By.className("content-inner clearfix"));
+		Iterator<WebElement> actualFacetsSelected = listOfSelectedFacets.iterator();
+		Iterator<String> referenceList = selectedFacetsList.iterator();
+		while (actualFacetsSelected.hasNext()){
+			String facetsText = actualFacetsSelected.next().getText();
+			while(referenceList.hasNext()){
+				if (!referenceList.next().equals(facetsText)){
+					listsMatch = false;
+					break;
+				}
+			}
+		}
+		return listsMatch;
+	}
+
+	public void addDifferentPrimaryFacet(WebDriver driver){
+		WebElement facetElement = null;
+		List<WebElement> listOfSelectableFacets = driver.findElements(By.id("ui-facets-content"));
+		Iterator<WebElement> primaryFacets = listOfSelectableFacets.iterator();
+			while (primaryFacets.hasNext()){
+				element = primaryFacets.next();
+				List<WebElement> secondaryFacets = element.findElements(By.className("js-accordion-item"));
+				if (!checkIfSecondaryFacetAlreadySelected(secondaryFacets)){
+					secondaryFacets.get(0).click();
+					addSelectedFacetToList(secondaryFacets.get(0).getText());
+					break;
+				}
+			}
+	}
+
+	private boolean checkIfSecondaryFacetAlreadySelected(List<WebElement> secondaryFacets) {
+		boolean hasFacetBeenSelected = false;
+		Iterator<WebElement> secondaryFacetIterator = secondaryFacets.iterator();
+		Iterator<String> storedListOfSelectedFacets = selectedFacetsList.iterator();
+		while (secondaryFacetIterator.hasNext() && !hasFacetBeenSelected){
+			element = secondaryFacetIterator.next();
+			String secondaryFacet = element.getText();
+			while(storedListOfSelectedFacets.hasNext()){			
+				if (storedListOfSelectedFacets.next().equals(secondaryFacet)){
+					hasFacetBeenSelected = true;
+					break;
+				}
+			}
+		}
+		return hasFacetBeenSelected;
+	}
+
+}

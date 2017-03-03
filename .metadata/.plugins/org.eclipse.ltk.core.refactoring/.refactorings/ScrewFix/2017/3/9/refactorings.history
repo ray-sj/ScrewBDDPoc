@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;itr&apos; in &apos;PageObjects.FacetPage.checkIfSecondaryFacetAlreadySelected(...)&apos; to &apos;secondaryFacets&apos;&#x0D;&#x0A;- Original project: &apos;ScrewFix&apos;&#x0D;&#x0A;- Original element: &apos;PageObjects.FacetPage.checkIfSecondaryFacetAlreadySelected(List&lt;WebElement&gt;).itr&apos;&#x0D;&#x0A;- Renamed element: &apos;itr&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;itr&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src\/main\/java&lt;PageObjects{FacetPage.java[FacetPage~checkIfSecondaryFacetAlreadySelected~QList\&lt;QWebElement;&gt;;@itr!2417!2468!2438!2440!QIterator\&lt;QWebElement;&gt;;!0!false" name="secondaryFacets" references="true" stamp="1488383597604" version="1.0"/>
+</session>

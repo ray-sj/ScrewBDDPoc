@@ -1,0 +1,53 @@
+package stepdefs;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import DomainObjects.BreadBoxDomain;
+import cucumber.api.java8.En;
+
+public class BreadBoxSteps implements En {
+	
+	private BreadBoxDomain breadBox;
+
+	@cucumber.api.java.Before
+	public void setUp() throws Exception {
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\sneddr02\\Downloads\\chromedriver\\chromedriver.exe");
+		WebDriver drive = new ChromeDriver();
+		drive.get("http://dev07-storefront.aws.gha.kfplc.com/");
+	    breadBox = new BreadBoxDomain(drive);
+	}
+
+	@cucumber.api.java.After
+	public void tearDown() throws Exception {
+		
+	    //drive.quit();
+	}
+	
+	public BreadBoxSteps() {
+		
+		String searchText = "cutters";
+//		String searchText = "drills";
+
+
+		Given("^the search results are displayed$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+		    breadBox.setupSearch(searchText);
+		});
+
+		When("^results are confirmed$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+		    Assert.assertTrue(breadBox.confirmThatTheResultsAreCorrect());
+		});
+
+		Then("^validate that the breadbox is not present$", () -> {
+		    // Write code here that turns the phrase above into concrete actions
+			Assert.assertFalse(breadBox.checkBreadBoxPresent());
+//		    breadBox.quitBrowser();
+		});			
+	}
+	
+}

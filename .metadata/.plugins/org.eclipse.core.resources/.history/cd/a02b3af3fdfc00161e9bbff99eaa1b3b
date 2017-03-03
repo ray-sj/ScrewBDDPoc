@@ -1,0 +1,17 @@
+package stepdefs;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DomainClass {
+
+	static WebDriver driver = null;
+	
+	public DomainClass(WebDriver driver){
+		this.driver = driver;
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\sneddr02\\Downloads\\chromedriver\\chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.get("http://dev07-storefront.aws.gha.kfplc.com/");
+
+	}
+}
